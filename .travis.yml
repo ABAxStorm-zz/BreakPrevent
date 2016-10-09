@@ -1,6 +1,0 @@
-language: php
-php:
-  - '7.0.x'
-  - '7.1.x'
-  - hhvm
-  - nightly
