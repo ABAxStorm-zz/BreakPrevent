@@ -1,0 +1,10 @@
+name: BreakPrevent
+main: BreakPrevent\Main
+author: ABAxStorm
+version: 1.0
+api: 2.0.0
+load: STARTUP
+
+permissions:
+  breakprevent:
+    default: op
