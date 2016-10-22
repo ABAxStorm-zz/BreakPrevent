@@ -9,6 +9,7 @@ use pocketmine\Player;
 use pocketmine\event\Listener;
 use pocketmine\level\Level;
 use pocketmine\Server;
+use pocketmine\event\Cancellable;
 
 class Main extends PluginBase implements Listener {
 
@@ -17,12 +18,14 @@ class Main extends PluginBase implements Listener {
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
   }
 
-  public function onBreak(BlockBreakEvent $event, Player $p){
-    if($p->hasPermission("breakprevent")){
-      $event->setCancelled(false);
+  public function onBlockBreak(BlockBreakEvent $event, Player $p){
+    if(!$p->hasPermission("breakprevent")){
+      $event->setCancelled();
+      $p->sendMessage("You cannot break blocks!");
     } else {
-      $event->setCancelled(true);
-        $this->getServer()->getPlayer()->sendMessage("You can't break blocks!");
+      if($p->hasPermission("breakprevent")){
+        return;
+      }
     }
   }
 
@@ -30,5 +33,3 @@ class Main extends PluginBase implements Listener {
     $this->getLogger()->info(Color::RED . "Disabled BreakPrevent");
   }
 }
-
-?>
